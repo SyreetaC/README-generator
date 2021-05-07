@@ -57,6 +57,16 @@ const renderLicenseSection = (license) => {
   }
 };
 
+// remove new line from end of installation information
+const sliceInstallString = (string) => string.slice(0, -1);
+
+// convert title link into markdown link format
+const titleLinkGenerator = (title) => {
+  const titleLinkNoSpace = title.replace(/\s/g, "-");
+  const titleLinkFinal = titleLinkNoSpace.toLowerCase();
+  return titleLinkFinal;
+};
+
 // Create a function to generate markdown for README
 const generateMarkdown = (data) => {
   return `
@@ -79,7 +89,7 @@ ${data.description}
 6. [License](#license)
 7. [Contributing](#contributing)
 8. [Tests](#tests)
-9. [Questions](#questions)
+9. [Contact](#contact)
   
 ## Installation
   
@@ -104,7 +114,7 @@ ${data.contributing}
   
 ${data.tests}
   
-## Questions
+## Contact
   
 - View my [GitHub](https://github.com/${data.gitHub}) profile
 - Email me at ${data.email}
