@@ -154,6 +154,11 @@ const inquirerData = async () => {
 };
 
 // Function to initialize app
+const init = async () => {
+  const data = await inquirerData();
+  const generatedMarkdown = generateMarkdown(data);
+  writeToFile("GENERATED_README.md", generatedMarkdown);
+};
 
 // Function call to initialize app
 init();
