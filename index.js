@@ -92,8 +92,66 @@ const furtherUsageInput = [
 ];
 
 // Function to write READme file
+const writeToFile = (fileName, data) => {
+  const errorHandling = (err) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log("Readme file generated!");
+    }
+  };
+
+  fs.writeFile(fileName, data, errorHandling);
+};
 
 // Create a function to collect data using inquirer
+const inquirerData = async () => {
+  const basicData = await inquirer.prompt(basicProjectQuestions);
+
+  const installationData = async () => {
+    let installationDataString = "";
+    const isRequired = await inquirer.prompt(installationRequirements);
+    if (isRequired.installation) {
+      let isLooping = { furtherInstallation: true };
+      while (isLooping.furtherInstallation) {
+        const newString = await inquirer.prompt(installationCodeInput);
+        installationDataString =
+          installationDataString + `${newString.installationCode}\n`;
+        isLooping = await inquirer.prompt(installationRequirementConfirm);
+      }
+    } else {
+      installationDataString = "No installation requirements ";
+    }
+    const installationDataObject = {
+      installationData: installationDataString,
+    };
+    return installationDataObject;
+  };
+
+  const usageData = async () => {
+    let usageDataString = "";
+    const isRequired = await inquirer.prompt(usageRequirementsConfirm);
+    if (isRequired.usage) {
+      let isLooping = { furtherUsage: true };
+      while (isLooping.furtherUsage) {
+        const newString = await inquirer.prompt(usageInfoInput);
+        usageDataString = usageDataString + `- ${newString.usageInfo}\n`;
+        isLooping = await inquirer.prompt(furtherUsageInput);
+      }
+    } else {
+      usageDataString = "No usage information";
+    }
+    const usageDataObject = {
+      usageData: usageDataString,
+    };
+    return usageDataObject;
+  };
+
+  const installationDataObject = await installationData();
+  const usageDataObject = await usageData();
+
+  return { ...basicData, ...installationDataObject, ...usageDataObject };
+};
 
 // Function to initialize app
 
