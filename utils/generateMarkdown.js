@@ -58,7 +58,7 @@ const renderLicenseSection = (license) => {
 };
 
 // remove new line from end of installation information
-// const sliceInstallString = (string) => string.slice(0, -1);
+const sliceInstallString = (string) => string.slice(0, -1);
 
 // convert title link into markdown link format
 const titleLinkGenerator = (title) => {
