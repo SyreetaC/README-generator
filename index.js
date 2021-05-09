@@ -115,8 +115,7 @@ const inquirerData = async () => {
       let isLooping = { furtherInstallation: true };
       while (isLooping.furtherInstallation) {
         const newString = await inquirer.prompt(installationCodeInput);
-        installationDataString =
-          installationDataString + `${newString.installationCode}\n`;
+        installationDataString += `${newString.installationCode}\n`;
         isLooping = await inquirer.prompt(installationRequirementConfirm);
       }
     } else {
