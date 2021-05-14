@@ -1,73 +1,37 @@
-// Create a function that returns a license badge based on which license is passed in or an empty string
 const renderLicenseBadge = (license) => {
-  let licenseBadge;
   switch (license) {
     case "MIT":
-      licenseBadge = "https://img.shields.io/apm/l/vim-mode";
-      break;
+      return "https://img.shields.io/apm/l/vim-mode";
     case "APACHE_2.0":
-      licenseBadge = "https://img.shields.io/crates/l/rustc-serialize/0.3.24";
-      break;
+      return "https://img.shields.io/crates/l/rustc-serialize/0.3.24";
     case "GPL_3.0":
-      licenseBadge =
-        "https://img.shields.io/eclipse-marketplace/l/notepad4e?label=GPL%203.0";
-      break;
+      return "https://img.shields.io/eclipse-marketplace/l/notepad4e?label=GPL%203.0";
     case "BSD_3":
-      licenseBadge = "https://img.shields.io/pypi/l/Django";
-      break;
+      return "https://img.shields.io/pypi/l/Django";
     case "None":
-      licenseBadge = "";
-      break;
+      return "";
   }
-  return licenseBadge;
 };
 
-// Create a function that returns the license link or an empty string
 const renderLicenseLink = (license) => {
-  let licenseLink;
   switch (license) {
     case "MIT":
-      licenseLink = "\nFind out more on: https://opensource.org/licenses/MIT";
-      break;
+      return "\nFind out more on: https://opensource.org/licenses/MIT";
     case "APACHE_2.0":
-      licenseLink =
-        "\nFind out more on: https://www.apache.org/licenses/LICENSE-2.0";
-      break;
+      return "\nFind out more on: https://www.apache.org/licenses/LICENSE-2.0";
     case "GPL_3.0":
-      licenseLink =
-        "\nFind out more on: https://www.gnu.org/licenses/gpl-3.0.en.html";
-      break;
+      return "\nFind out more on: https://www.gnu.org/licenses/gpl-3.0.en.html";
     case "BSD_3":
-      licenseLink =
-        "\nFind out more on: https://opensource.org/licenses/BSD-3-Clause";
-      break;
+      return "\nFind out more on: https://opensource.org/licenses/BSD-3-Clause";
     case "None":
-      licenseLink = "";
-      break;
-  }
-  return licenseLink;
-};
-
-// Create a function that returns the license section of README or returns no
-const renderLicenseSection = (license) => {
-  if (license === "None") {
-    return "No";
-  } else {
-    return license;
+      return "";
   }
 };
 
-// remove new line from end of installation information
-const sliceInstallString = (string) => string.slice(0, -1);
+const renderLicenseSection = (license) => (license === "None" ? "No" : license);
 
-// convert title link into markdown link format
-const titleLinkGenerator = (title) => {
-  const titleLinkNoSpace = title.replace(/\s/g, "-");
-  const titleLinkFinal = titleLinkNoSpace.toLowerCase();
-  return titleLinkFinal;
-};
+const titleLinkGenerator = (title) => title.replace(/\s/g, "-").toLowerCase();
 
-// Create a function to generate markdown for README
 const generateMarkdown = (data) => {
   return `
 # ${data.title}
@@ -92,7 +56,9 @@ ${data.description}
 9. [Contact](#contact)
   
 ## Installation
-  
+\`\`\`
+${data.installationData}
+\`\`\`
   
 ## Usage
   
